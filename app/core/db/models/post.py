@@ -8,4 +8,4 @@ class Post(Base):
 
     title: Mapped[str] = mapped_column(nullable=False)
     body: Mapped[str] = mapped_column(nullable=False)
-    id_auth: Mapped[int] = mapped_column(nullable=False, unique=True)
+    id_auth: Mapped[int] = mapped_column(nullable=False)

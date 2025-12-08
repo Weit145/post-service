@@ -6,7 +6,7 @@ from app.user_service.grpc.iuser_service import IUserService
 
 class UserService(IUserService):
 
-    def __init__(self, host: str = "user-post-service", port: int = 50055) -> None:
+    def __init__(self, host: str = "user-service", port: int = 50055) -> None:
         self.channel = grpc.aio.insecure_channel(f"{host}:{port}")
         self.stub = user_post_pb2_grpc.UserPostStub(self.channel)
 
