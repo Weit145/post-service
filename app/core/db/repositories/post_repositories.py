@@ -23,6 +23,16 @@ class SQLAlchemyPostRepository(IPostRepository):
         async with db_helper.transaction() as session:
             result = await session.execute(select(Post).where(Post.id_auth==id_auth))
             return result.scalars().all()
+        
+    async def get_posts_group(self, limit: int, last_id: int) -> list[Post]:
+        async with db_helper.transaction() as session:
+            stmt = (
+                select(Post).order_by(Post.id.desc()).limit(limit)
+            )
+            if last_id > 0:
+                stmt = stmt.where(Post.id < last_id)
+            result = await session.execute(stmt)
+            return result.scalars().all()
     
     async def delete_post(self, post: Post,context) -> None:
         async with db_helper.transaction() as session:
