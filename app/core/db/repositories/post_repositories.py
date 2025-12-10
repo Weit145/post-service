@@ -34,9 +34,14 @@ class SQLAlchemyPostRepository(IPostRepository):
             result = await session.execute(stmt)
             return result.scalars().all()
     
-    async def delete_post(self, post: Post,context) -> None:
+    async def delete_post(self, post: Post) -> None:
         async with db_helper.transaction() as session:
             await session.delete(post)
+
+    async def delete_posts(self, posts:list[Post])->None:
+        async with db_helper.transaction() as session:
+            for post in posts:
+                await session.delete(post)
 
     async def update_post(self, post: Post,context) -> None:
         async with db_helper.transaction() as session:

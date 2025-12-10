@@ -77,3 +77,9 @@ class PostServiceImpl(IPostServiceImpl):
         await self.repo.update_post(post,context)
         username = await self.user.get_user_by_id(request.auth_id)
         return convert_post_out_response(post, username)
+    
+    async def DeletePostFromUserService(self, data:dict)->None:
+        id = data.get("id")
+        posts = await self.repo.get_post_by_id_auth(id)
+        if posts is not None:
+            await self.repo.delete_posts(posts)

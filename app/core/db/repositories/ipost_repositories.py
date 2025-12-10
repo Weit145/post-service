@@ -17,7 +17,11 @@ class IPostRepository(ABC):
         pass
     
     @abstractmethod
-    async def delete_post(self, post: Post,context) -> None:
+    async def delete_post(self, post: Post) -> None:
+        pass
+
+    @abstractmethod
+    async def delete_posts(self, posts:list[Post])->None:
         pass
 
     @abstractmethod
