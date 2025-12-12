@@ -32,7 +32,7 @@ class PostServiceImpl(IPostServiceImpl):
         await check_in_db(post_to_delete, context)
         await check_auth_post(post_to_delete, request.auth_id, context)
 
-        await self.repo.delete_post(post_to_delete,context)
+        await self.repo.delete_post(post_to_delete)
         return post_pb2.Empty()
     
     async def GetGroupPost(self, request, context) -> post_pb2.PostListResponse:
