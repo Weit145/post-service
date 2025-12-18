@@ -56,10 +56,10 @@ class PostServiceImpl(IPostServiceImpl):
         return convert_post_out_response(post, username)
     
     async def GetByUsernamePost(self, request, context) -> post_pb2.PostListResponse:
-        auth_id = await self.user.get_user_by_username(request.username)
-        await check_in_db(auth_id, context)
-        posts = await self.repo.get_post_by_id_auth(auth_id)
+        posts = await self.repo.get_post_by_id_auth(request.auth_id)
         await check_in_db(posts, context)
+        auth_id = await self.user.get_user_by_id(request.auth_id)
+        await check_in_db(auth_id, context)
         list_response = []
         for post in posts:
             post_response = convert_post_out_response(post, request.username)
