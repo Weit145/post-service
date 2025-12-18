@@ -1,7 +1,7 @@
-from sqlalchemy import text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
+
 
 class Post(Base):
     __tablename__ = "post"
