@@ -34,6 +34,7 @@ class KafkaRepository:
                 if topic == "delete":
                     await PostServiceImpl().DeletePostFromUserService(data)
                 elif topic == "admin_delete_post":
+                    await PostServiceImpl().DeletePostFromUserService(data)
                     await PostServiceImpl().DeletePostFromAdminService(data)
 
     async def wait_kafka(self, retries=10000, delay=20):
