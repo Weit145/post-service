@@ -13,9 +13,7 @@ from alembic import command
 
 class DatabaseHellper:
     def __init__(self, url: str, echo: bool = False):
-        # Создаем асинхронный движок для подключения к БД
         self.engine = create_async_engine(url=url, echo=echo)
-        # Создаем фабрику асинхронных сессий
         self.session_factory = async_sessionmaker(
             bind=self.engine,
             autoflush=False,
@@ -23,7 +21,6 @@ class DatabaseHellper:
         )
 
     def get_scoped_session(self):
-        # Создаем scoped сессию - одна сессия на одну асинхронную задачу
         session = async_scoped_session(
             session_factory=self.session_factory, scopefunc=asyncio.current_task
         )
@@ -52,9 +49,6 @@ class DatabaseHellper:
             except Exception as e:
                 print(f"Database not ready yet ({i + 1}/5): {e}", flush=True)
                 await asyncio.sleep(20)
-
-    # @property
-    # @staticmethod
 
 
 db_helper = DatabaseHellper(url=settings.db_url, echo=settings.db_echo)
