@@ -16,7 +16,6 @@ class PostServiceImpl(IPostServiceImpl):
     def __init__(self):
         self.user = UserService()
         self.repo = SQLAlchemyPostRepository()
-        # self.kf = KafkaRepository()
 
     async def CreatePost(self, request, context) -> post_pb2.PostOutResponse:
         new_post = convert_post_create_request(request)
